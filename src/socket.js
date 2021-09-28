@@ -99,7 +99,7 @@ class Socket {
   }
 
   connect(){
-    if(this.conn){ return }
+    if(this.conn){ return false }
 
     this.conn = new this.transport(this.endPointURL())
     this.conn.timeout   = this.longpollerTimeout
@@ -107,6 +107,8 @@ class Socket {
     this.conn.onerror   = error => this.onConnError(error)
     this.conn.onmessage = event => this.onConnMessage(event)
     this.conn.onclose   = event => this.onConnClose(event)
+
+    return true
   }
 
   // Logs the message. Override `this.logger` for specialized logging. noops by default
